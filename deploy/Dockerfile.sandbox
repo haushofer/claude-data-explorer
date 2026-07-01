@@ -1,0 +1,15 @@
+# Throwaway execution image for analysis runs. Build once:
+#   docker build -f deploy/Dockerfile.sandbox -t claude-data-explorer-sandbox .
+# Then point VENV_PYTHON at deploy/sandbox-python.sh (see SECURITY.md).
+FROM python:3.12-slim
+
+# The data-science stack the agent's analysis.py expects.
+RUN pip install --no-cache-dir \
+    pandas numpy matplotlib seaborn scipy statsmodels
+
+# Headless plotting + a writable, throwaway config/cache home (mounted tmpfs).
+ENV MPLBACKEND=Agg MPLCONFIGDIR=/tmp HOME=/tmp
+WORKDIR /work
+# The container is run with --user <host-app-uid> and --network none at runtime,
+# so it executes as an unprivileged user with no network and only the run
+# directory bind-mounted. See deploy/sandbox-python.sh.

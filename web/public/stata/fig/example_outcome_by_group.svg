@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="340" viewBox="0 0 520 340" font-family="system-ui, sans-serif">
+  <rect width="520" height="340" fill="#ffffff"/>
+  <text x="260" y="28" text-anchor="middle" font-size="16" font-weight="600" fill="#1f2430">Mean outcome by group (example figure)</text>
+  <!-- axes -->
+  <line x1="70" y1="280" x2="480" y2="280" stroke="#9aa2b1" stroke-width="1"/>
+  <line x1="70" y1="60" x2="70" y2="280" stroke="#9aa2b1" stroke-width="1"/>
+  <!-- y ticks -->
+  <text x="60" y="284" text-anchor="end" font-size="11" fill="#6b7280">0</text>
+  <text x="60" y="210" text-anchor="end" font-size="11" fill="#6b7280">2</text>
+  <text x="60" y="140" text-anchor="end" font-size="11" fill="#6b7280">4</text>
+  <line x1="67" y1="206" x2="70" y2="206" stroke="#9aa2b1"/>
+  <line x1="67" y1="136" x2="70" y2="136" stroke="#9aa2b1"/>
+  <!-- control bar (mean ~0.2) -->
+  <rect x="140" y="273" width="90" height="7" fill="#94a3b8"/>
+  <text x="185" y="298" text-anchor="middle" font-size="12" fill="#374151">control</text>
+  <!-- treatment bar (mean ~3.8) -->
+  <rect x="300" y="147" width="90" height="133" fill="#4f46e5"/>
+  <text x="345" y="298" text-anchor="middle" font-size="12" fill="#374151">treatment</text>
+  <text x="345" y="140" text-anchor="middle" font-size="11" fill="#4f46e5">3.8</text>
+  <text x="185" y="266" text-anchor="middle" font-size="11" fill="#64748b">0.2</text>
+</svg>

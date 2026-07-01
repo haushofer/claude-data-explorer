@@ -1,0 +1,18 @@
+{
+ "tables": [
+  {
+   "id": "example_regression",
+   "name": "example_regression",
+   "relpath": "example_regression.tex",
+   "folder": "(root)",
+   "ok": true
+  }
+ ],
+ "figures": [
+  {
+   "id": "example_outcome_by_group",
+   "name": "example_outcome_by_group",
+   "file": "example_outcome_by_group.svg"
+  }
+ ]
+}

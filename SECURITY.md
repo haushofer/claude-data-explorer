@@ -49,20 +49,29 @@ guarded version of this same endpoint. The layers below are the lessons from tha
 `deploy/deploy.sh` wires up layers 1–3 for you. Layer 4 is a console setting only
 you can make.
 
-## Stronger isolation (recommended roadmap)
+## Stronger isolation — container per run (opt-in, ships with the template)
 
-The systemd + egress sandbox is solid and is what this template ships. For a fully
-untrusted audience, isolate each analysis run in a throwaway container:
+For a fully untrusted audience, run each analysis inside a throwaway container.
+This template ships that as a **drop-in interpreter wrapper** — no app-code change:
 
-- Run the seeded workspace in `docker run --network none --read-only` (plus a
-  `tmpfs` for the run dir), as a non-root user with `--pids-limit`, `--memory`, and
-  `--cpus`. The agent's Python then has **no network at all** and a filesystem it
-  can't escape, while the Node server keeps its normal Anthropic access.
-- The clean integration point is the interpreter invocation: `VENV_PYTHON` in
-  `web/lib/config.ts` and the `spawnSync` in `web/app/api/rerun/route.ts`. Wrap
-  those in a `docker run …` so every execution is containerized.
-- Managed sandboxes (e2b, Modal, Fly Machines) are drop-in alternatives if you'd
-  rather not run Docker yourself.
+```bash
+docker build -f deploy/Dockerfile.sandbox -t claude-data-explorer-sandbox .
+# then in web/.env.local:
+VENV_PYTHON=/srv/claude-data-explorer/deploy/sandbox-python.sh
+```
+
+Because both the agent's own code execution and the visitor's edit-and-rerun go
+through `VENV_PYTHON`, pointing it at `deploy/sandbox-python.sh` makes **every**
+analysis run as `docker run --network none --read-only` (writable `tmpfs` + the
+run directory only), as a non-root user with `--memory`, `--cpus`, and
+`--pids-limit` caps. The agent's Python then has **no network at all** and a
+filesystem it can't escape, while the Node server keeps its normal Anthropic
+access. Managed sandboxes (e2b, Modal, Fly Machines) are drop-in alternatives if
+you'd rather not run Docker yourself.
+
+This is the strongest option and is recommended for public, unauthenticated-audience
+deployments. It requires Docker on the host; if you can't run Docker, the systemd +
+nftables sandbox above already contains the attacks seen in the wild.
 
 This is left as an opt-in enhancement rather than the default because it adds a
 Docker dependency; the shipped systemd + nftables sandbox already contains the

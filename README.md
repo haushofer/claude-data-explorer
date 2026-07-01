@@ -52,9 +52,16 @@ with `pandas numpy matplotlib seaborn` (point `VENV_PYTHON` at it).
 |---|---|
 | **`web/lib/site.config.ts`** | Title/brand, the dataset filename, the paragraph the agent is told about your data, and the example prompts. |
 | **`data/public/`** | Your `dataset.csv`, `data_dictionary.csv` (`column,description,non_null`), and `data_dictionary.md` (what the agent reads). |
-| **`web/public/sections.json`** | The landing-page sections (Markdown + `$LaTeX$`). A section with `"id":"raw"` renders the data table; others just show text. |
+| **`content/sections.json`** | The landing-page sections (Markdown + `$LaTeX$`). A section with `"id":"raw"` renders the data table; others show text or reference Stata tables/figures. Run `npm run content` to regenerate `web/public/sections.json`. |
 
 Secrets live in **`web/.env.local`** (gitignored) — see `web/.env.example`.
+
+### Publish your Stata output (optional)
+
+Export tables as LaTeX (`esttab`) into `web/public/stata/tab/` and figures into
+`web/public/stata/fig/`, reference them from `content/sections.json`
+(`{"table":"name"}` / `{"figure":"name"}`), and run `npm run content`. Tables
+render live from their LaTeX. Full guide: [stata/README.md](stata/README.md).
 
 ## Deploy (hardened)
 
@@ -68,6 +75,10 @@ This creates an unprivileged app user, builds the app, installs it under a
 sandboxed `systemd` unit, and pins that user's outbound traffic to the Anthropic
 API only. Then front it with nginx + TLS (proxy to `127.0.0.1:$PORT`) and set a
 spend cap on your API key. Details and the threat model: [SECURITY.md](SECURITY.md).
+
+For the **strongest isolation** (a network-less container per analysis run), build
+the sandbox image and point `VENV_PYTHON` at `deploy/sandbox-python.sh` — see
+[SECURITY.md](SECURITY.md#stronger-isolation--container-per-run-opt-in-ships-with-the-template).
 
 ## How it works
 

@@ -18,23 +18,8 @@
     "title": "Published results",
     "intro": "Drop your own Stata output here. Export tables as LaTeX (`esttab ... using file.tex`) into `web/public/stata/tab/` and figures (PNG/SVG) into `web/public/stata/fig/`, then reference them by name below. Tables render live from their LaTeX; figures show as images. Run `npm run content` to rebuild.\n\nThe two items below are examples that ship with the template:",
     "analyses": [
-      {
-        "id": "tab__example_regression",
-        "title": "example_regression",
-        "kind": "table",
-        "src": null,
-        "tex": "/stata/tab/example_regression.tex",
-        "provenance": "human",
-        "writeup": "Example regression table (rendered from `example_regression.tex`). The treatment effect is **3.84** (SE 1.40), significant at the 5% level."
-      },
-      {
-        "id": "fig__example_outcome_by_group",
-        "title": "example_outcome_by_group",
-        "kind": "figure",
-        "src": "/stata/fig/example_outcome_by_group.svg",
-        "provenance": "human",
-        "writeup": "Example figure (`example_outcome_by_group.svg`): mean outcome by group."
-      }
+      { "table": "example_regression", "writeup": "Example regression table (rendered from `example_regression.tex`). The treatment effect is **3.84** (SE 1.40), significant at the 5% level." },
+      { "figure": "example_outcome_by_group", "writeup": "Example figure (`example_outcome_by_group.svg`): mean outcome by group." }
     ]
   },
   {

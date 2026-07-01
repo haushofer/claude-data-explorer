@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "setup": "node ../scripts/setup.mjs",
+    "content": "python3 ../scripts/build_manifest.py && python3 ../scripts/build_sections.py",
+    "stata": "python3 ../stata/compile_tables.py",
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start"
