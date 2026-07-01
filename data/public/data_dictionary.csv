@@ -1,0 +1,10 @@
+column,description,non_null
+id,Unique participant identifier,180
+group,Randomized assignment: treatment or control,180
+age,Participant age in years,180
+sex,Self-reported sex (F/M),180
+region,Region of residence (North/South/East/West),180
+baseline_score,Outcome score measured at baseline (0-100),180
+followup_score,Outcome score measured at follow-up (0-100),180
+outcome,Change in score (follow-up minus baseline),180
+satisfaction,"Self-reported satisfaction, 1 (low) to 5 (high)",180

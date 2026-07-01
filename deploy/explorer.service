@@ -1,0 +1,45 @@
+[Unit]
+# Hardened systemd unit for the explorer. `deploy.sh` fills in the __PLACEHOLDERS__
+# and installs this to /etc/systemd/system/. It runs the app as an unprivileged
+# user inside a systemd sandbox, so a compromise of the code-execution agent
+# cannot read other users' secrets, escalate to root, or exhaust the machine.
+Description=claude-data-explorer (data explorer + AI analysis agent)
+After=network.target
+
+[Service]
+Type=simple
+User=__APP_USER__
+Group=__APP_USER__
+WorkingDirectory=__APP_DIR__/web
+EnvironmentFile=__APP_DIR__/web/.env.local
+Environment=NODE_ENV=production
+Environment=HOME=__APP_DIR__
+Environment=MPLCONFIGDIR=/tmp/mpl
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+ExecStart=/usr/bin/npm run start
+Restart=on-failure
+RestartSec=3
+
+# --- sandbox hardening (see SECURITY.md) ---
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ReadWritePaths=__APP_DIR__
+ProtectHome=read-only
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictSUIDSGID=yes
+RestrictRealtime=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+RestrictNamespaces=yes
+SystemCallArchitectures=native
+MemoryMax=2G
+CPUQuota=200%
+TasksMax=300
+
+[Install]
+WantedBy=multi-user.target

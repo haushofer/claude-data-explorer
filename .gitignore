@@ -1,0 +1,21 @@
+# secrets & local env
+web/.env.local
+.env
+*.local
+
+# node / next build + runtime state
+web/node_modules/
+web/.next/
+web/runs/
+web/gallery.db
+web/gallery.db-*
+web/next-env.d.ts
+web/*.tsbuildinfo
+
+# per-machine python env
+.venv/
+__pycache__/
+*.pyc
+
+# os / editor
+.DS_Store

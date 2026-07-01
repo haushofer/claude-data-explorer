@@ -1,0 +1,21 @@
+[
+  {
+    "id": "overview",
+    "n": "",
+    "title": "Overview",
+    "intro": "Welcome. This site publishes a dataset and lets **anyone analyze it in plain language** — type a question and an AI agent writes and runs real Python (pandas, matplotlib) against the data, then posts the resulting chart, table, and a written summary to a shared gallery.\n\nThis is the demo content that ships with the template. **Edit it** in `web/public/sections.json` — each entry becomes a section in the left-hand outline. A section with `\"id\": \"raw\"` renders the interactive data table; other sections just show their `intro` text (Markdown, with `$LaTeX$` math supported).\n\nTo make this your own: drop your CSV into `data/public/`, edit `web/lib/site.config.ts`, and rewrite these sections to describe your data."
+  },
+  {
+    "id": "raw",
+    "n": 1,
+    "title": "The dataset",
+    "intro": "Browse the data below — sort, filter, and read each column's description. Download the full CSV, or open the **Analyze** tab to ask the agent a question about it.",
+    "analyses": []
+  },
+  {
+    "id": "analyze",
+    "n": 2,
+    "title": "Run your own analysis",
+    "intro": "Open the **Analyze** tab, enter your name, and describe an analysis in plain language (for example: *“compare the outcome between the treatment and control groups and test whether the difference is significant”*). The agent writes an `analysis.py`, runs it against the data in an isolated workspace, and returns its figures, tables, and a plain-language summary. You can then edit the script and re-run it, or publish the result to the shared **Gallery**."
+  }
+]
